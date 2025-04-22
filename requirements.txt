@@ -1,0 +1,4 @@
+aws-cdk-lib
+constructs>=10.0.0,<11.0.0
+cdklabs.generative_ai_cdk_constructs
+streamlit-cognito-auth == 1.3.1
