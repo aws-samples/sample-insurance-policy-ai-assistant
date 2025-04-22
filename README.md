@@ -11,6 +11,7 @@ In today's fast-paced world, customers demand seamless and efficient experiences
  * Grounded with factual information using citations
  * Enable customers to easily understand their insurance coverage 
  * Quickly summarize and explain complex policy documents, terms and conditions
+ * Assistant integrated with Guardrails to ensure security and quality of responses
  * Available 24x7 without human intervention and reduce call centre load
 
 
