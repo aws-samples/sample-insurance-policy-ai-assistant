@@ -90,20 +90,6 @@ class InsurancePolicyAiAssistantStack(Stack):
                 ]
             ),
             
-            # PII filtering
-            sensitive_information_policy_config=aws_bedrock.CfnGuardrail.SensitiveInformationPolicyConfigProperty(
-                pii_entities_config=[
-                    aws_bedrock.CfnGuardrail.PiiEntityConfigProperty(
-                        type="EMAIL",
-                        action="ANONYMIZE"
-                    ),
-                    aws_bedrock.CfnGuardrail.PiiEntityConfigProperty(
-                        type="ADDRESS",
-                        action="ANONYMIZE"
-                    )
-                ]
-            ),
-            
             # Word policy for profanity filtering
             word_policy_config=aws_bedrock.CfnGuardrail.WordPolicyConfigProperty(
                 managed_word_lists_config=[

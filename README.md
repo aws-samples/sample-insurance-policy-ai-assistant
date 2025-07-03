@@ -17,24 +17,22 @@ In today's fast-paced world, customers demand seamless and efficient experiences
 
 ## Technical Architecture
 
-![Alt text](Insurance_GTM_Architecture.jpg)
+![Alt text](Insurance_GTM_Architecture.png)
 
 
-1. Creates a Knowledge Base in Amazon Bedrock using Amazon S3 as the data source. The S3 bucket contains the general insurance policy documents. The embeddings model used is Titan Embeddings G1 - Text v1.2 and the vector DB used to store the embeddings is Amazon OpenSearch Serverless.
+1. **Knowledge Base Foundation:** Amazon Bedrock Knowledge Base ingests general insurance policy documents from Amazon S3, generating embeddings using Amazon Titan Embeddings G1 - Text v1.2. The embeddings are stored in Amazon OpenSearch Serverless for high-performance vector similarity search.
 
-2. Users authenticate in to the Streamlit App running on Amazon EC2 using Amazon Cognito. The Application uses Amazon CloudFront as the CDN and is also integrated with Amazon Web Application Firewall(WAF) for better protection against external attacks. Amazon EC2 is placed infront of an Application Load Balancer(ALB).
+2. **Secure Application Architecture:** Users access the Streamlit application through Amazon CloudFront, protected by AWS WAF against common web exploits. Amazon Cognito handles authentication, while Application Load Balancer distributes traffic to Amazon EC2 instances hosting the application.
 
-3. The Streamlit application stores the session ID and chat prompts in an Amazon DynamoDB table. This data can then be leveraged for analytics, such as identifying the most commonly asked questions, if business stakeholders require this information.
+3. **Session and Analytics Tracking:** Amazon DynamoDB captures session IDs and chat interactions, enabling business intelligence capabilities such as identifying frequently asked questions and analyzing customer interaction patterns for continuous service improvement.
 
-4. Initially, when a customer insurance policy certificate is issued, an AWS Lambda function is invoked. The purpose of this Lambda function is to call Amazon Textract, which will extract the text from the policy certificate. The output of this text extraction process is then sent to an Amazon S3 bucket. However, this workflow is currently not included in the existing CDK implementation.
+4. **Customer Document Management:** Individual customer insurance policy certificates are securely stored in Amazon S3. The Streamlit application retrieves these documents directly, ensuring each customer receives personalized information based on their specific policy details.
 
-5. Subsequently, the Streamlit Application reads the customer insurance policy certificate directly from Amazon S3.
+5. **Intelligent Query Processing:** When users submit questions, the application leverages Amazon Bedrock's Retrieve API to perform semantic search against the knowledge base, identifying the most relevant document chunks from the general insurance policy corpus.
 
-6. When the user enters a query, the Streamlit Application first retrieves the semantically similar document chunks from the Amazon Bedrock KB using the Retrieve API.
+6. **Personalized Response Generation:** Amazon Bedrock combines the retrieved knowledge base chunks with the customer's specific policy certificate to generate contextually accurate responses. Claude LLM processes this combined information to deliver personalized, policy-specific answers.
 
-7. The retrieved chunks are then added to the system prompt of Amazon Bedrock (Claude LLM) along with the customer policy certificate (previously read from S3). The LLM can then provide a personalized response back to the user.
-
-8. The implementation features Bedrock integrated with Guardrails to ensure security and quality of responses. These guardrails prevent prompt injection attacks and filter out harmful content including hate speech, sexual content, insults, violence, and misconduct. Grounding and relevance checks verify responses are factually accurate and firmly based on the reference material, blocking any that fall below established thresholds. Additionally, the system includes filters to protect sensitive information such as email addresses and physical addresses.
+7. **Guardrails for Responsible AI:** Amazon Bedrock Guardrails ensure response quality and security through multiple layers: blocking prompt injection attempts, filtering harmful content, verifying factual grounding against source documents, enforcing relevance thresholds, and protecting sensitive information including PII.
 
 ## Implementation Guide
 
@@ -45,11 +43,11 @@ In today's fast-paced world, customers demand seamless and efficient experiences
 * Once the CDK is deployed, you will receive the Amazon Cognito User Pool ID as an output. You must then create users (john_doe and john_smith) for the corresponding user pool ID through Amazon Cognito from the AWS console. Detailed guidance can be found in the [provided documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-create-user-accounts.html).
 * Ensure that the username is 'john_doe' and 'john_smith', and there are no typos. This is because the solution can only fetch the corresponding customer policy from the S3 bucket if the username matches the customer policy file name. If you would like to change or add any other user names, ensure you update that in the 'customer_policy' folder as well. Ultimately, the username and the customer policy file name (without the extention .txt) should be the same for this solution to work properly.
 * To modify the Streamlit Application code, update the system prompt, or make other adjustments, edit the 'user_data_script.sh' file. The Amazon EC2 instance will execute this script during its initial boot process.
-* The LLM model used by the Amazon Bedrock KB and AI Assistant is specified in the 'app.py' file. For this demo, Anthropic's Claude 3 Sonnet model is used. If you would like to test it out with any other LLM's, you can change the 'model_id' variable in the 'app.py' file. You can get all the available Amazon Bedrock base model IDs [here](https://docs.aws.amazon.com/bedrock/latest/userguide/model-ids.html). Always ensure you have access to the specific LLM in the Amazon Bedrock. You can use [this link](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html) for guidance.
+* The LLM model used by the Amazon Bedrock KB and AI Assistant is specified in the 'app.py' file. For this demo, Anthropic's Claude 3.5 Haiku model is used. If you would like to test it out with any other LLM's, you can change the 'model_id' variable in the 'app.py' file. You can get all the available Amazon Bedrock base model IDs [here](https://docs.aws.amazon.com/bedrock/latest/userguide/model-ids.html). Always ensure you have access to the specific LLM in the Amazon Bedrock. You can use [this link](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html) for guidance.
 
 ### Pre-requisites
  
- * Ensure you have access to Claude 3 Sonnet Model in Amazon Bedrock for the region you are deploying.
+ * Ensure you have access to Claude 3.5 Haiku Model in Amazon Bedrock for the region you are deploying.
  * If deploying to any region other than us-east-1 (N. Virginia), remember to update the CloudFront prefix list in the 'app.py' file accordingly.
  ```
  ap-northeast-1:

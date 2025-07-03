@@ -210,6 +210,7 @@ def bedrock_prompt(prompt,all_prompts):
             "content": [{"type": "text", "text": prompt}],
         }
     ],
+    "amazon-bedrock-guardrailConfig": {"streamProcessingMode": "ASYNCHRONOUS"}
     })
     return body
 
