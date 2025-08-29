@@ -14,6 +14,26 @@ In today's fast-paced world, customers demand seamless and efficient experiences
  * Assistant integrated with Guardrails to ensure security and quality of responses
  * Available 24x7 without human intervention and reduce call centre load
 
+## Cost
+
+This solution uses the following services: [Amazon Bedrock](https://aws.amazon.com/bedrock/pricing/), [Amazon Bedrock Knowledge Bases](https://aws.amazon.com/bedrock/pricing/), [Amazon Bedrock Guardrails](https://aws.amazon.com/bedrock/pricing/), [Amazon OpenSearch Serverless](https://aws.amazon.com/opensearch-service/pricing/), [Amazon S3](https://aws.amazon.com/s3/pricing/), [Amazon EC2](https://aws.amazon.com/ec2/pricing/), [Amazon CloudFront](https://aws.amazon.com/cloudfront/pricing/), [AWS WAF](https://aws.amazon.com/waf/pricing/), [Amazon Cognito](https://aws.amazon.com/cognito/pricing/), [Amazon DynamoDB](https://aws.amazon.com/dynamodb/pricing/), and [Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/pricing/).
+
+With an estimated usage of 8 hours (480 Amazon Bedrock requests with approximately 4,000 input tokens and 350 output tokens per request), your total cost should not exceed $5. Actual costs may be lower if you qualify for the [AWS Free Tier](https://aws.amazon.com/free/).
+
+We recommend creating a [Budget](https://aws.amazon.com/aws-cost-management/aws-budgets/) to help manage costs. Prices are subject to change. For full details, refer to the pricing webpage for each service used in this solution.
+
+### Sample Cost Table
+
+The following table provides a sample cost breakdown for deploying this solution with the default parameters in US East (N. Virginia) with pricing as of August 29, 2025.
+
+| AWS Service | Dimensions | Cost [USD] |
+|---------|------------|------------|
+| Amazon Bedrock (Claude 3.5 Haiku) | per 1,000 input tokens<br>per 1,000 output tokens | $0.0008<br>$0.004 |
+| Amazon OpenSearch Serverless | per OCU-hour for indexing<br>per OCU-hour for search<br>per GB-month of managed storage | $0.24<br>$0.24<br>$0.024 |
+| Amazon S3 | per GB of storage used, Frequent Access Tier, first 50 TB per month<br>PUT, COPY, POST, LIST requests (per 1,000 requests)<br>GET, SELECT, and all other requests (per 1,000 requests) | $0.023<br>$0.005<br>$0.0004 |
+| Amazon EC2 (t2.micro) | per On-Demand Linux instance hour<br>per GB-month of General Purpose (gp3) provisioned storage | $0.0116<br>$0.08 |
+| Amazon DynamoDB | per GB-month of storage, over 25 GB<br>per million Write Request Units (WRU)<br>per million Read Request Units (RRU) | $0.25<br>$0.625<br>$0.125 |
+
 
 ## Technical Architecture
 

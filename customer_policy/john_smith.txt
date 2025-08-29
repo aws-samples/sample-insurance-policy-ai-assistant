@@ -87,13 +87,6 @@ You can download our 24 hour emergency helpline number from our website. Remembe
 Your AnyCompany Car Insurance Policy Schedule
 This document shows the cover your policy provides. Please read it alongside your other policy documents. We'll keep this document safe for you in your AnyCompany account.
 
-Registration number	AB12CDE
-Make, model and year	Skoda, Octavia Se Technology Tsi 115, 2019
-Cover type	Comprehensive
-Use of vehicle	Social, Domestic, Pleasure and Commuting
-Period of cover	From 00:01 on 14 April 2024 to 23:59 on 13 April 2025
-Cover details
-This table below shows your policy cover limits in the event of a claim. Please read it alongside your policy booklet.
 
 Loss of or damage to your vehicle
 Manufacturer fitted accessories	Market value
@@ -191,16 +184,6 @@ The total cost of credit to finance the policy for the period of cover shown abo
 You can choose whether to opt in or opt out of automatic renewal at any time, free of charge, in your AnyCompany account. Please read your Important Information document for further details on the automatic renewal process.
  
 
-Your certificate of insurance
-This insurance certificate is evidence of your cover with us. Please read it and keep it safe with your other policy documents.
-
-Your  policy  number	AC1234567
-Vehicle registration	AB12CDE
-Make, model and year	Skoda, Octavia Se Technology Tsi 115, 2019
-Policyholder	JOHN SMITH
-Start of cover	00:00 on 14 April 2024
-End of cover	23:59 on 13 April 2025
-The insured vehicle
 The vehicle registration mark described above or
 1.	any vehicle loaned to the policyholder for a maximum of seven days from a garage, motor engineer or vehicle repairer while the vehicle registration described above is being either serviced, repaired or having an MOT test.
 2.	any vehicle loaned to the policyholder or, any other person entitled to drive as described in permitted drivers, by the insurer's nominated supplier as a result of a claim under this policy whilst the vehicle registration described above is being repaired
@@ -223,10 +206,6 @@ Use to secure the release of a motor vehicle, other than the vehicle identified 
 I hereby certify that the policy to which this certificate relates satisfies the requirements of the relevant law applicable in Great Britain, Northern Ireland, the Isle of Man, the Island of Guernsey, the Island of Jersey and the Island of Alderney
 AnyCompany Insurance Limited - Authorised insurers
 
-David Mathew
-CEO, UK & Ireland General Insurance
-
-
 Please   note:
 For full details of the insurance cover, refer to your policy. In the event of an accident visit your AnyCompany account. For changes to your policy please log on to your your AnyCompany account.
 Advice  to  third  parties:
@@ -239,19 +218,3 @@ To whom it may concern
 This insurance certificate provides evidence that motor insurance operates in the United Kingdom for the dates shown and this cover extends to and include the compulsory insurance requirements of:
 a.	any member country of the European Union
 b.	Andorra, Iceland, Liechtenstein, Norway, Serbia and Switzerland
-La présente attestation est faite pour server et valoir ce que de droit
-Cette attestation d'assurance apporte la preuve que l'assurance automobile est valable au Royaume-Uni aux dates indiquées et que cette couverture est étendue pour inclure les conditions obligatoires d'assurance de :
-a.	Tous les autres pays membres de l'Union européenne
-b.	Andorre, I 'Islande, le Liechtenstein, la Norvège, la Serbie et la Suisse
-An alle, die es angeht
-Dieses Versicherungszertifikat ist der Nachweis, dass die Kraftfahrzeugversicherung im Vereinigten Königreich an den gezeigten Daten gültig ist, und diese Deckung auch die Pflichtversicherungsvorschriften in:
-a.	Jedem anderen Mitgliedsstaat der Europäischen Union.
-b.	Andorra, Island, Liechtenstein, Norwegen, Serbien und der Schweiz
-A quien corresponda
-Este Certificado de Seguro provee evidencia que seguro de automóvil opera en el Reino Unido para las fechas que aparecen y esta cobertura se extiende para incluir los requerimientos de seguro obligatorios de:
-a.	Cualquier otro país miembro de la Unión Europea
-b.	Andorra, Islandia, Liechtenstein, Noruega, Serbia y Suiza
-A chiunque possa interessare
-Questo Certificato di Assicurazione costituisce la prova dell'esistenza dell'assicurazione automobilistica nel Regno Unito per le date indicate e che la copertura è estesa in modo da includere i requisiti assicurativi obbligatori di:
-a.	Qualsiasi altro Paese facente parte dell'Unione Europea
-b.	Andorra, Islanda, Liechtenstein, Norvegia, Serbia e Svizzera
