@@ -320,7 +320,12 @@ class InsurancePolicyAiAssistantStack(Stack):
         )
         
         user_pool.apply_removal_policy(RemovalPolicy.DESTROY)
-        
+        NagSuppressions.add_resource_suppressions(user_pool, [
+            {
+                "id": "AwsSolutions-COG2",
+                "reason": "For the purposes of demo, MFA is not required"
+            }
+        ])
         PARAMETER_COGNITO_USER_POOL_ID = user_pool.user_pool_id
 
         app_client = user_pool.add_client("Insurance-AI-Assistant-AppClient-" + entryTimestamp,
