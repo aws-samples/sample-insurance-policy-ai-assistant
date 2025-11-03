@@ -1,5 +1,4 @@
 import os
-import aws_cdk
 from aws_cdk import (
     Stack,
     RemovalPolicy,
@@ -15,23 +14,22 @@ from aws_cdk import (
     aws_lambda as _lambda,
     aws_cloudfront as cloudfront,
     aws_cloudfront_origins as origins,
-    aws_wafv2 as wafv2,
     aws_bedrock,
     aws_elasticloadbalancingv2 as elbv2,
     aws_elasticloadbalancingv2_targets as elasticloadbalancingv2_targets
 )
-from aws_cdk.aws_lambda import Function, Runtime, Code
+from aws_cdk.aws_lambda import Runtime, Code
 from constructs import Construct
 from cdk_nag import NagSuppressions
-import json
 import datetime
 from cdklabs.generative_ai_cdk_constructs import (
     bedrock 
     )
-    
+
+
 class InsurancePolicyAiAssistantStack(Stack):
 
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, construct_id: str, web_acl_arn: str = None, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         entryTimestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
@@ -430,95 +428,7 @@ class InsurancePolicyAiAssistantStack(Stack):
             open=False
         )
         
-        # Create an AWS Web Application Firewall - WebACL
-        web_acl = wafv2.CfnWebACL(self, "WebACL",
-            name=f"InsurancePolicyAIAssistant_ACL-{entryTimestamp}",
-            scope="CLOUDFRONT",
-            default_action=wafv2.CfnWebACL.DefaultActionProperty(
-                allow={}
-            ),
-            visibility_config=wafv2.CfnWebACL.VisibilityConfigProperty(
-                sampled_requests_enabled=True,
-                cloud_watch_metrics_enabled=True,
-                metric_name=f"InsurancePolicyAIAssistant_ACL-{entryTimestamp}"
-            ),
-            rules=[
-                wafv2.CfnWebACL.RuleProperty(
-                    name="AWS-RateBasedRule-IP-300",
-                    priority=0,
-                    statement=wafv2.CfnWebACL.StatementProperty(
-                        rate_based_statement=wafv2.CfnWebACL.RateBasedStatementProperty(
-                            limit=100,
-                            evaluation_window_sec=300,  # Not directly supported, modify as needed if CDK allows
-                            aggregate_key_type="IP"
-                        )
-                    ),
-                    action=wafv2.CfnWebACL.RuleActionProperty(
-                        block={}
-                    ),
-                    visibility_config=wafv2.CfnWebACL.VisibilityConfigProperty(
-                        sampled_requests_enabled=True,
-                        cloud_watch_metrics_enabled=True,
-                        metric_name=f"AWS-RateBasedRule-IP-300-{entryTimestamp}"
-                    )
-                ),
-                wafv2.CfnWebACL.RuleProperty(
-                    name="AWS-AWSManagedRulesAmazonIpReputationList",
-                    priority=1,
-                    statement=wafv2.CfnWebACL.StatementProperty(
-                        managed_rule_group_statement=wafv2.CfnWebACL.ManagedRuleGroupStatementProperty(
-                            vendor_name="AWS",
-                            name="AWSManagedRulesAmazonIpReputationList"
-                        )
-                    ),
-                    override_action=wafv2.CfnWebACL.OverrideActionProperty(
-                        none={}
-                    ),
-                    visibility_config=wafv2.CfnWebACL.VisibilityConfigProperty(
-                        sampled_requests_enabled=True,
-                        cloud_watch_metrics_enabled=True,
-                        metric_name=f"AWS-AWSManagedRulesAmazonIpReputationList-{entryTimestamp}"
-                    )
-                ),
-                wafv2.CfnWebACL.RuleProperty(
-                    name="AWS-AWSManagedRulesCommonRuleSet",
-                    priority=2,
-                    statement=wafv2.CfnWebACL.StatementProperty(
-                        managed_rule_group_statement=wafv2.CfnWebACL.ManagedRuleGroupStatementProperty(
-                            vendor_name="AWS",
-                            name="AWSManagedRulesCommonRuleSet"
-                        )
-                    ),
-                    override_action=wafv2.CfnWebACL.OverrideActionProperty(
-                        none={}
-                    ),
-                    visibility_config=wafv2.CfnWebACL.VisibilityConfigProperty(
-                        sampled_requests_enabled=True,
-                        cloud_watch_metrics_enabled=True,
-                        metric_name=f"AWS-AWSManagedRulesCommonRuleSet-{entryTimestamp}"
-                    )
-                ),
-                wafv2.CfnWebACL.RuleProperty(
-                    name="AWS-AWSManagedRulesKnownBadInputsRuleSet",
-                    priority=3,
-                    statement=wafv2.CfnWebACL.StatementProperty(
-                        managed_rule_group_statement=wafv2.CfnWebACL.ManagedRuleGroupStatementProperty(
-                            vendor_name="AWS",
-                            name="AWSManagedRulesKnownBadInputsRuleSet"
-                        )
-                    ),
-                    override_action=wafv2.CfnWebACL.OverrideActionProperty(
-                        none={}
-                    ),
-                    visibility_config=wafv2.CfnWebACL.VisibilityConfigProperty(
-                        sampled_requests_enabled=True,
-                        cloud_watch_metrics_enabled=True,
-                        metric_name=f"AWS-AWSManagedRulesKnownBadInputsRuleSet-{entryTimestamp}"
-                    )
-                )
-            ]
-        )
-        web_acl.apply_removal_policy(RemovalPolicy.DESTROY)
+        
         # Create CloudFront CDN Distribution using ALB as origin
         cdn = cloudfront.Distribution(self, 'CDN', 
             comment='CDK created distribution for Insurance Policy AI Assistant',
@@ -529,7 +439,7 @@ class InsurancePolicyAiAssistantStack(Stack):
                 allowed_methods=cloudfront.AllowedMethods.ALLOW_ALL,
                 viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS
             ),
-            web_acl_id=web_acl.attr_arn,
+            web_acl_id=web_acl_arn,
             minimum_protocol_version=cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021
         )
    
