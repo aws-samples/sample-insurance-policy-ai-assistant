@@ -304,7 +304,6 @@ class InsurancePolicyAiAssistantStack(Stack):
         user_pool = cognito.UserPool(self, PARAMETER_COGNITO_USER_POOL_NAME,
             user_pool_name="Insurance-AI-Assistant-UserPool-" + entryTimestamp,
             self_sign_up_enabled=True,
-            advanced_security_mode=cognito.AdvancedSecurityMode.ENFORCED,
             sign_in_aliases=cognito.SignInAliases(username=True, email=True),
             auto_verify=cognito.AutoVerifiedAttrs(email=True),
             password_policy=cognito.PasswordPolicy(
@@ -316,6 +315,7 @@ class InsurancePolicyAiAssistantStack(Stack):
             ),
             feature_plan=cognito.FeaturePlan.PLUS,
             account_recovery=cognito.AccountRecovery.EMAIL_ONLY,
+            standard_threat_protection_mode=cognito.StandardThreatProtectionMode.FULL_FUNCTION,
             removal_policy=RemovalPolicy.DESTROY
         )
         
@@ -545,11 +545,6 @@ def handler(event, context):
             value=PARAMETER_COGNITO_USER_POOL_NAME,
             description="Cognito user pool created at : " + entryTimestamp
         ) 
-        CfnOutput(
-            self, "ALB-DNS-Name",
-            value=alb.load_balancer_dns_name,
-            description="Application Load Balancer DNS Name"
-        )
         
         # Add dependencies
         dataSource.node.add_dependency(docBucket)
