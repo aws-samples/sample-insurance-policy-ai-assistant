@@ -11,7 +11,7 @@ from insurance_policy_ai_assistant.waf_stack import CloudFrontWafStack
 app = cdk.App()
 
 os.environ['model_id'] = 'global.anthropic.claude-haiku-4-5-20251001-v1:0'
-os.environ['cloudfront_prefix_list'] = 'pl-82a045eb' #This is for "us-east-1 (N. Virginia)" region. You have to change this prefix list, if you are using a different AWS region. Refer: https://docs.aws.amazon.com/vpc/latest/userguide/working-with-aws-managed-prefix-lists.html
+os.environ['cloudfront_prefix_list'] = 'pl-3b927c52' #This is for "us-east-1 (N. Virginia)" region. You have to change this prefix list, if you are using a different AWS region. Refer: https://docs.aws.amazon.com/vpc/latest/userguide/working-with-aws-managed-prefix-lists.html
 
 # Create WAF stack in us-east-1 (required for CloudFront)
 waf_stack = CloudFrontWafStack(
